@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>Register</template>
+<template>Register view</template>
 
 <style scoped></style>
