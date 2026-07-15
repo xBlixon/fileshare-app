@@ -1,28 +1,17 @@
 name: tests
 
-on:
-  push:
-    branches:
-      - develop
-      - main
-      - master
-      - workos
-  pull_request:
-    branches:
-      - develop
-      - main
-      - master
-      - workos
+on: push
 
 permissions:
   contents: read
 
 env:
-  node-version: '22'
+  node-version: '24'
   node-cache: 'npm'
 
 jobs:
   ci:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     strategy:
       matrix:

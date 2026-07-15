@@ -10,7 +10,7 @@ permissions:
 
 env:
   php-version: '8.4'
-  node-version: '22'
+  node-version: '24'
   node-cache: 'npm'
 
 jobs:
@@ -22,7 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
-          persist-credentials: false
+          ref: '${{ github.head_ref }}'
+          persist-credentials: true
 
       - name: PHP Setup
         uses: "./.github/actions/php-setup"
@@ -54,5 +55,6 @@ jobs:
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
+          commit_user_name: github-actions[bot]
           commit_message: fix code style
           commit_options: '--no-verify'
