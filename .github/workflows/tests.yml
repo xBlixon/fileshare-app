@@ -11,7 +11,6 @@ env:
 
 jobs:
   ci:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     strategy:
       matrix:
