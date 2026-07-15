@@ -5,11 +5,10 @@ import Layout from '@/pages/Templates/Layout.vue';
 const page = usePage();
 
 const greeting = page.props.greeting;
-
 </script>
 
 <template>
-<Layout>
-    {{ greeting }}
-</Layout>
+    <Layout>
+        {{ greeting }}
+    </Layout>
 </template>
