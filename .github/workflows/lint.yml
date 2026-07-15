@@ -3,23 +3,22 @@ name: linter
 on:
   push:
     branches:
-      - develop
       - main
-      - master
-      - workos
-  pull_request:
-    branches:
-      - develop
-      - main
-      - master
-      - workos
 
 permissions:
   contents: write
 
+env:
+  php-version: '8.4'
+  node-version: '22'
+  node-cache: 'npm'
+
 jobs:
   quality:
     runs-on: ubuntu-latest
+    permissions:
+      # For auto-commit
+      contents: write
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
@@ -28,14 +27,15 @@ jobs:
       - name: PHP Setup
         uses: "./.github/actions/php-setup"
         with:
-          php-version: '8.4'
+          php-version: ${{ env.php-version }}
           php-extensions: ''
           coverage: none
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
         with:
-          php-version: '8.4'
+          node-version: ${{ env.node-version }}
+          cache: ${{ env.node-cache }}
 
       - name: Install Dependencies
         run: |
@@ -51,8 +51,8 @@ jobs:
       - name: Lint Frontend
         run: npm run lint
 
-      # - name: Commit Changes
-      #   uses: stefanzweifel/git-auto-commit-action@v7
-      #   with:
-      #     commit_message: fix code style
-      #     commit_options: '--no-verify'
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: fix code style
+          commit_options: '--no-verify'

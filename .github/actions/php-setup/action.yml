@@ -1,4 +1,4 @@
-name: PHP Setup
+name: php-setup
 
 description: Install PHP and all dependencies
 
@@ -54,7 +54,7 @@ runs:
       shell: bash
 
     - name: Cache dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         key: composer-cache-${{ hashFiles('**/composer.lock') }}
         path: ${{ steps.composer-cache-dir.outputs.dir }}
