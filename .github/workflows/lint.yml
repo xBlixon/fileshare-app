@@ -10,7 +10,7 @@ permissions:
 
 env:
   php-version: '8.4'
-  node-version: '22'
+  node-version: '24'
   node-cache: 'npm'
 
 jobs:
