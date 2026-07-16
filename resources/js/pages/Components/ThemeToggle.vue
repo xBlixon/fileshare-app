@@ -7,20 +7,23 @@ import { Button } from '@/components/ui/button';
 
 const mode = useColorMode();
 function toggleTheme() {
-    const nextTheme: Record<string, 'light' | 'dark' > = {
+    const nextTheme: Record<string, 'light' | 'dark' | 'auto'> = {
+        auto: 'dark',
         dark: 'light',
-        light: 'dark',
+        light: 'auto',
     };
 
-    mode.value = nextTheme[mode.value] || 'dark';
+    mode.value = nextTheme[mode.value] || 'auto';
 }
 
 const iconMap = {
+    auto: MonitorCog,
     dark: Moon,
     light: Sun,
 };
 
 const labelMap = {
+    auto: 'System',
     dark: 'Dark',
     light: 'Light',
 }
@@ -35,7 +38,7 @@ const themeLabel = computed<string>(() => labelMap[mode.value]);
 </script>
 
 <template>
-    <Button @click="toggleTheme">
+    <Button @click="toggleTheme" variant="outline">
         <component :is="themeIcon"></component>
         {{ themeLabel }}
     </Button>
