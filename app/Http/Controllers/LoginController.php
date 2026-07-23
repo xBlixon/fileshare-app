@@ -11,9 +11,8 @@ class LoginController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Auth/Register',
+        return Inertia::render('Auth/Login',
             [
-
             ]);
     }
 
