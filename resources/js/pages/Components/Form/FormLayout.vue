@@ -12,7 +12,17 @@ interface Props {
     title: string;
     description: string;
     action: string;
-    method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'get' | 'post' | 'put' | 'patch' | 'delete' ;
+    method?:
+        | 'GET'
+        | 'POST'
+        | 'PUT'
+        | 'PATCH'
+        | 'DELETE'
+        | 'get'
+        | 'post'
+        | 'put'
+        | 'patch'
+        | 'delete';
 }
 
 const props = withDefaults(defineProps<Props>(), {

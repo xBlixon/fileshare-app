@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import Layout from '@/pages/Templates/Layout.vue';
-import FormLayout from '@/pages/Components/Form/FormLayout.vue';
-import FormInput from '@/pages/Components/Form/FormInput.vue';
-import { CardFooter } from '@/components/ui/card';
-import Submit from '@/pages/Components/Form/Submit.vue';
 import { login } from '@/actions/App/Http/Controllers/LoginController';
+import { CardFooter } from '@/components/ui/card';
 import FormCheckbox from '@/pages/Components/Form/FormCheckbox.vue';
+import FormInput from '@/pages/Components/Form/FormInput.vue';
+import FormLayout from '@/pages/Components/Form/FormLayout.vue';
+import Submit from '@/pages/Components/Form/Submit.vue';
+import Layout from '@/pages/Templates/Layout.vue';
 
 const route = login();
-
 </script>
 
 <template>

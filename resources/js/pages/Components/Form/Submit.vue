@@ -9,7 +9,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <Button class="w-full mt-4">
+    <Button class="mt-4 w-full">
         {{ props.text }}
     </Button>
 </template>

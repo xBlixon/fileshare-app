@@ -2,6 +2,8 @@
 import { usePage } from '@inertiajs/vue3';
 import { LogOut, FileUp } from '@lucide/vue';
 import { computed } from 'vue';
+import { index as login } from '@/actions/App/Http/Controllers/LoginController';
+import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -25,7 +27,7 @@ function highlightAuthentication() {
 
     setTimeout(() => {
         authSection?.classList.remove('animate-highlight');
-    }, 2000)
+    }, 2000);
 }
 </script>
 
@@ -57,7 +59,7 @@ function highlightAuthentication() {
                 </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
-        <NavigationMenu class="py-2 mr-2">
+        <NavigationMenu class="mr-2 py-2">
             <NavigationMenuList class="h-full items-center space-x-2">
                 <ThemeToggle />
                 <NavigationMenuItem v-if="user">
@@ -84,7 +86,7 @@ function highlightAuthentication() {
                                 <NavigationMenuLink as-child>
                                     <a href="#">
                                         <div
-                                            class="font-medium text-destructive"
+                                            class="text-destructive font-medium"
                                         >
                                             Logout
                                         </div>
@@ -106,7 +108,7 @@ function highlightAuthentication() {
                             'flex-row gap-2',
                         ]"
                     >
-                        <a href="#">Register</a>
+                        <a :href="register().url">Register</a>
                     </NavigationMenuLink>
                     <NavigationMenuLink
                         as-child
@@ -115,7 +117,7 @@ function highlightAuthentication() {
                             'flex-row gap-2',
                         ]"
                     >
-                        <a href="#">Login</a>
+                        <a :href="login().url">Login</a>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
             </NavigationMenuList>

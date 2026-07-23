@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LucideIcon} from '@lucide/vue';
+import type { LucideIcon } from '@lucide/vue';
 import { MonitorCog, Moon, Sun } from '@lucide/vue';
 import { useColorMode } from '@vueuse/core';
 import { computed } from 'vue';
@@ -26,15 +26,13 @@ const labelMap = {
     auto: 'System',
     dark: 'Dark',
     light: 'Light',
-}
+};
 
 const themeIcon = computed<LucideIcon>(() => {
     return iconMap[mode.value];
 });
 
 const themeLabel = computed<string>(() => labelMap[mode.value]);
-
-
 </script>
 
 <template>

@@ -8,7 +8,7 @@ import Navbar from '@/pages/Components/Navbar.vue';
 <template>
     <Head title=""></Head>
     <Navbar />
-    <div class="w-full md:w-3/5 mx-auto">
+    <div class="mx-auto w-full md:w-3/5">
         <div class="flex justify-center">
             <slot />
         </div>
