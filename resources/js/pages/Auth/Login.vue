@@ -18,7 +18,7 @@ const route = login();
             :action="route.url"
             :method="route.method"
         >
-            <FormInput name="email" label="Email" type="email" />
+            <FormInput name="email" label="Email" type="email" placeholder="john@example.com" />
             <FormInput name="password" label="Password" type="password" />
             <FormCheckbox name="remember_me" label="Remember me" />
             <CardFooter>

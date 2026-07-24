@@ -17,11 +17,11 @@ const route = store();
             :action="route.url"
             :method="route.method"
         >
-            <FormInput name="name" label="Name" type="text" />
-            <FormInput name="email" label="Email" type="email" />
+            <FormInput name="name" label="Name" type="text" placeholder="John Doe" />
+            <FormInput name="email" label="Email" type="email" placeholder="john@example.com" />
             <FormInput name="password" label="Password" type="password" />
             <FormInput
-                name="password_confirm"
+                name="password_confirmation"
                 label="Confirm Password"
                 type="password"
             />
