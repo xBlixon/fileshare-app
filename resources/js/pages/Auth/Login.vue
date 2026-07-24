@@ -11,7 +11,7 @@ const route = login();
 </script>
 
 <template>
-    <Layout>
+    <Layout vertical-center>
         <FormLayout
             title="Log in to your account"
             description="Enter your credentials"
