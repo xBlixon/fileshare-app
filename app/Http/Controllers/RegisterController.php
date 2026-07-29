@@ -18,14 +18,12 @@ class RegisterController extends Controller
 
     public function store(RegistrationRequest $request): RedirectResponse
     {
-
         $user = User::create($request->validated());
-        event(new Registered($user)); // TODO email confirmation
 
-        Inertia::flash([
-            'success' => 'Confirm your email to activate your account.',
-        ]);
+        event(new Registered($user));
 
-        return to_route('login.index');
+        auth()->login($user);
+
+        return to_route('verification.notice');
     }
 }
