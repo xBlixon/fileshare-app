@@ -8,25 +8,9 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 
-interface Props {
-    title: string;
-    description: string;
-    action: string;
-    method?:
-        | 'GET'
-        | 'POST'
-        | 'PUT'
-        | 'PATCH'
-        | 'DELETE'
-        | 'get'
-        | 'post'
-        | 'put'
-        | 'patch'
-        | 'delete';
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    method: 'GET',
+const props = defineProps({
+    title: String,
+    description: String,
 });
 </script>
 
@@ -41,9 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
             </CardDescription>
         </CardHeader>
         <CardContent>
-            <Form :action="props.action" :method="props.method">
-                <slot />
-            </Form>
+            <slot />
         </CardContent>
     </Card>
 </template>
