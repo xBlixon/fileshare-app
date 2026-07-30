@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
-import { LogOut, FileUp } from '@lucide/vue';
-import { computed } from 'vue';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { FileUp } from '@lucide/vue';
+import { computed, ref } from 'vue';
 import { index as login } from '@/actions/App/Http/Controllers/LoginController';
 import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
 import {
@@ -16,6 +16,7 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import ThemeToggle from '@/pages/Components/ThemeToggle.vue';
+import { logout } from '@/actions/App/Http/Controllers/LogoutController';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -28,6 +29,12 @@ function highlightAuthentication() {
     setTimeout(() => {
         authSection?.classList.remove('animate-highlight');
     }, 2000);
+}
+
+function sendLogout() {
+    const form = useForm();
+    const route = logout();
+    form.submit(route.method, route.url);
 }
 </script>
 
@@ -84,7 +91,7 @@ function highlightAuthentication() {
                                     </a>
                                 </NavigationMenuLink>
                                 <NavigationMenuLink as-child>
-                                    <a href="#">
+                                    <a @click="sendLogout">
                                         <div
                                             class="text-destructive font-medium"
                                         >

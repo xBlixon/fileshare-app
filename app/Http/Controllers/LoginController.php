@@ -22,7 +22,7 @@ class LoginController extends Controller
         if (auth()->attempt($credentials, $remember)) {
             session()->regenerate();
 
-            return redirect()->intended('home.index');
+            return redirect()->intended(route('home.index'));
         }
 
         return back()->withErrors(['email' => 'Invalid email or password.']);
