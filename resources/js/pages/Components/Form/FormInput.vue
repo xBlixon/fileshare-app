@@ -8,7 +8,7 @@ interface Props {
     placeholder?: string;
 }
 
-const model = defineModel<string>()
+const model = defineModel<string>();
 const props = defineProps<Props>();
 </script>
 

@@ -24,8 +24,20 @@ const props = defineProps({
                 <slot />
             </div>
         </div>
-        <Message v-if="page.flash.success" :message="page.flash.success" type="success" />
-        <Message v-if="page.flash.message" :message="page.flash.message" type="neutral" />
-        <Message v-if="page.flash.error" :message="page.flash.error" type="error" />
+        <Message
+            v-if="page.flash.success"
+            :message="page.flash.success"
+            type="success"
+        />
+        <Message
+            v-if="page.flash.message"
+            :message="page.flash.message"
+            type="neutral"
+        />
+        <Message
+            v-if="page.flash.error"
+            :message="page.flash.error"
+            type="error"
+        />
     </div>
 </template>

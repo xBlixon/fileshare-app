@@ -13,12 +13,17 @@ const resend = send();
             <p class="mb-1">
                 Go to your email and click on the verification link.
             </p>
-            <p>
+            <div>
                 <Form :action="resend.url" :method="resend.method">
                     Don't see the mail?
-                    <button type="submit" class="text-indigo-500 underline cursor-pointer">Click here to resend.</button>
+                    <button
+                        type="submit"
+                        class="cursor-pointer text-indigo-500 underline"
+                    >
+                        Click here to resend.
+                    </button>
                 </Form>
-            </p>
+            </div>
         </div>
     </Layout>
 </template>

@@ -29,15 +29,8 @@ const route = login();
                     type="email"
                     placeholder="john@example.com"
                 />
-                <FormInput
-                    name="password"
-                    label="Password"
-                    type="password"
-                />
-                <FormCheckbox
-                    name="remember"
-                    label="Remember me"
-                />
+                <FormInput name="password" label="Password" type="password" />
+                <FormCheckbox name="remember" label="Remember me" />
                 <CardFooter class="mb-3">
                     <Submit text="Log in" />
                 </CardFooter>

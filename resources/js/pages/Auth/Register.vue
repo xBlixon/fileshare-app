@@ -46,7 +46,10 @@ const route = store();
                 <FormError v-if="errors.name" :text="errors.name" />
                 <FormError v-if="errors.email" :text="errors.email" />
                 <FormError v-if="errors.password" :text="errors.password" />
-                <FormError v-if="errors.password_confirmation" :text="errors.password_confirmation" />
+                <FormError
+                    v-if="errors.password_confirmation"
+                    :text="errors.password_confirmation"
+                />
             </Form>
         </FormLayout>
     </Layout>

@@ -13,7 +13,11 @@ const props = defineProps<Props>();
 
 <template>
     <div class="flex items-center gap-3">
-        <Checkbox :name="props.name" :id="props.name" :value="model ? '1' : '0'" />
+        <Checkbox
+            :name="props.name"
+            :id="props.name"
+            :value="model ? '1' : '0'"
+        />
         <Label :for="props.name">{{ props.label }}</Label>
     </div>
 </template>
