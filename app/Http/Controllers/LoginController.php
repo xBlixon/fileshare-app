@@ -14,7 +14,7 @@ class LoginController extends Controller
         return Inertia::render('Auth/Login');
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->safe()->only(['email', 'password']);
         $remember = $request->safe()->input('remember', false);
