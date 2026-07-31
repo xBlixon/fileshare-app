@@ -3,7 +3,8 @@
 use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function () {
+// Redirects to home.index route if verified - no need to verify again.
+Route::middleware(['auth', 'not-verified:home.index'])->group(function () {
     Route::get('/email/verify', [EmailVerificationController::class, 'notice'])
         ->name('verification.notice');
 

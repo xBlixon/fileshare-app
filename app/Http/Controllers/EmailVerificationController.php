@@ -9,19 +9,15 @@ use Inertia\Response;
 
 class EmailVerificationController extends Controller
 {
-    public function notice(): Response
+    public function notice(): RedirectResponse|Response
     {
         return Inertia::render('EmailVerification/Notice');
     }
 
     public function verify(EmailVerificationRequest $request): RedirectResponse
     {
-        if (auth()->user()->hasVerifiedEmail()) {
-            Inertia::flash('message', 'Email is already verified.');
-        } else {
-            $request->fulfill();
-            Inertia::flash('success', 'Email verified successfully!');
-        }
+        $request->fulfill();
+        Inertia::flash('success', 'Email verified successfully!');
 
         return to_route('home.index');
     }
