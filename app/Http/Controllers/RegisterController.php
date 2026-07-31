@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\RegistrationRequest;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -11,16 +13,17 @@ class RegisterController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Auth/Register',
-            [
-
-            ]);
+        return Inertia::render('Auth/Register');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(RegistrationRequest $request): RedirectResponse
     {
-        return response()->json([
-            'to' => 'do',
-        ]);
+        $user = User::create($request->validated());
+
+        event(new Registered($user));
+
+        auth()->login($user);
+
+        return to_route('verification.notice');
     }
 }

@@ -10,6 +10,24 @@
 
         @fonts
 
+        <script>
+            // This script prevents theme flashing at the beginning of page load.
+            (function () {
+                // VueUse theme under the 'vueuse-color-scheme' key
+                const savedTheme = localStorage.getItem('vueuse-color-scheme') || 'auto';
+
+                const isDark =
+                    savedTheme === 'dark' ||
+                    (savedTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
+
         @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
         <x-inertia::head>
             <title>{{ config('app.name', 'Laravel') }}</title>
