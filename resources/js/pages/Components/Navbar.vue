@@ -70,7 +70,7 @@ function sendLogout() {
             <NavigationMenuList class="h-full items-center space-x-2">
                 <ThemeToggle />
                 <NavigationMenuItem v-if="user">
-                    <NavigationMenuTrigger>John Doe</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>{{ user.name }}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul class="grid w-[300px] gap-4">
                             <li>
