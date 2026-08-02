@@ -111,6 +111,11 @@ function getFileDescription(file: File): string {
     return `${ext} · ${size}`;
 }
 
+function removeFile(index: number) {
+    filesToUpload.value.splice(index, 1);
+    syncInputFiles();
+}
+
 // When dropping by accident anywhere on the screen besides drop zone
 // Browser will not open file in the same window (quality of life).
 window.addEventListener('drop', (e: DragEvent) => {
@@ -184,7 +189,7 @@ window.addEventListener('dragover', (e: DragEvent) => {
                 <AttachmentActions>
                     <AttachmentAction
                         :aria-label="`Remove ${file.name}`"
-                        @click.prevent="console.log($event)"
+                        @click.prevent="removeFile(index)"
                     >
                         <X color="#ffffff" />
                     </AttachmentAction>
