@@ -18,7 +18,7 @@ const props = defineProps<Props>();
             :id="props.name"
             :value="model ? '1' : '0'"
         />
-        <Label :for="props.name">{{ props.label }}</Label>
+        <label :for="props.name">{{ props.label }}</label>
     </div>
 </template>
 

@@ -14,7 +14,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <Label :for="props.name">{{ props.label }}</Label>
+    <label :for="props.name">{{ props.label }}</label>
     <Textarea
         :name="props.name"
         :placeholder="props.placeholder"
