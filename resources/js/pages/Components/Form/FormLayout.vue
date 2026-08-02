@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Form } from '@inertiajs/vue3';
 import {
     Card,
     CardContent,
@@ -11,11 +10,15 @@ import {
 const props = defineProps({
     title: String,
     description: String,
+    wide: Boolean,
 });
+
+const widthStyle = props.wide ? 'max-w-6xl' : 'max-w-sm';
+
 </script>
 
 <template>
-    <Card class="w-full max-w-sm">
+    <Card :class="'w-full ' + widthStyle">
         <CardHeader class="text-center">
             <CardTitle>
                 {{ props.title }}

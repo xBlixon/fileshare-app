@@ -5,23 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Share;
 use App\Http\Requests\StoreShareRequest;
 use App\Http\Requests\UpdateShareRequest;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ShareController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        return Inertia::render('Share/Index');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return Inertia::render('Share/Create');
     }
 
     /**

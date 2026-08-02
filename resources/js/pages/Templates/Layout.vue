@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, usePage } from '@inertiajs/vue3';
-import Navbar from '@/pages/Components/Navbar.vue';
 import Message from '@/pages/Components/Message.vue';
+import Navbar from '@/pages/Components/Navbar.vue';
 
 const page = usePage();
 
@@ -16,7 +16,7 @@ const props = defineProps({
         <Navbar />
         <div
             :class="
-                'mx-auto flex-1 md:w-3/5' +
+                'mx-auto flex-1 w-full' +
                 (props.verticalCenter ? ' flex flex-col justify-center' : '')
             "
         >
