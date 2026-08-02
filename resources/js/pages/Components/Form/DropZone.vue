@@ -19,6 +19,7 @@ const filesToUpload = ref<File[]>([]);
 const props = defineProps<{
     class?: HTMLAttributes['class'];
     attachmentGroupClass?: HTMLAttributes['class'];
+    name: string;
 }>();
 
 function handleDrop(e: DragEvent) {
@@ -30,7 +31,6 @@ function handleDrop(e: DragEvent) {
 }
 
 function handleInputChange(e: Event) {
-    console.dir('Changed', e);
     const target = e.target as HTMLInputElement;
 
     if (target.files && target.files.length > 0) {
@@ -61,7 +61,6 @@ function appendFiles(files: FileList) {
     filesToUpload.value.push(...fileArr);
 
     syncInputFiles();
-    console.dir(filesToUpload.value);
 }
 
 function syncInputFiles() {
@@ -147,18 +146,21 @@ window.addEventListener('dragover', (e: DragEvent) => {
 
 <template>
     <label
+        :for="props.name"
         @drop.prevent="handleDrop"
         @dragover.stop="handleDragOver"
         :class="
             'dark:bg-input/30 border-input shadow-xs focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-45 text-muted-foreground flex w-full min-w-0 cursor-pointer items-center justify-center rounded-md border border-dashed bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] md:text-sm ' +
             props.class
         "
-        >Drag & Drop files
+        >Drag & Drop or click to upload
 
         <input
             type="file"
             hidden
             ref="input"
+            :name="props.name"
+            :id="props.name"
             multiple
             accept="*/*"
             @change="handleInputChange"

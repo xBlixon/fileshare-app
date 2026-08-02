@@ -31,7 +31,11 @@ import Layout from '@/pages/Templates/Layout.vue';
                     type="textarea"
                     placeholder="Let the light shine on these files!"
                 />
-                <DropZone class="mt-3" attachment-group-class="mt-3 max-[845px]:justify-center flex-wrap" />
+                <DropZone
+                    class="mt-3"
+                    attachment-group-class="mt-3 max-[845px]:justify-center flex-wrap"
+                    name="files"
+                />
                 <div class="md:mx-10">
                     <Submit text="Share" class="h-12" />
                 </div>
