@@ -11,6 +11,10 @@ class File extends Model
     /** @use HasFactory<\Database\Factories\FileFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'path',
+    ];
+
     public function share(): BelongsTo
     {
         return $this->belongsTo(Share::class);

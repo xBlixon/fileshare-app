@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Share;
 use App\Http\Requests\StoreShareRequest;
-use App\Http\Requests\UpdateShareRequest;
+use App\Models\Share;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,7 +32,19 @@ class ShareController extends Controller
      */
     public function store(StoreShareRequest $request)
     {
-        //
+        //        Log::debug($request);
+
+        //        /** @var Share $share */
+        $share = auth()->user()->shares()->create($request->safe()->only(['title', 'description']));
+        $request->collect('files')->each(
+            function (/** @var UploadedFile $file */ $file) use ($share) {
+                $path = $file->store("shares/$share->id");
+                $share->files()->create([
+                    'path' => $path,
+                ]);
+            });
+
+        return back();
     }
 
     /**
@@ -53,7 +66,7 @@ class ShareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateShareRequest $request, Share $share)
+    public function update(Request $request, Share $share)
     {
         //
     }

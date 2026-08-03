@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
+import { store } from '@/actions/App/Http/Controllers/ShareController';
 import DropZone from '@/pages/Components/Form/DropZone.vue';
 import FormInput from '@/pages/Components/Form/FormInput.vue';
 import FormLayout from '@/pages/Components/Form/FormLayout.vue';
@@ -15,8 +16,8 @@ import Layout from '@/pages/Templates/Layout.vue';
             wide
         >
             <Form
-                action="#"
-                method="POST"
+                :action="store().url"
+                :method="store().method"
                 enctype="multipart/form-data"
             >
                 <FormInput
