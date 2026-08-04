@@ -35,7 +35,6 @@ function handleInputChange(e: Event) {
 
     if (target.files && target.files.length > 0) {
         appendFiles(target.files);
-        target.value = '';
     }
 }
 
@@ -159,7 +158,7 @@ window.addEventListener('dragover', (e: DragEvent) => {
             type="file"
             hidden
             ref="input"
-            :name="props.name"
+            :name="props.name + '[]'"
             :id="props.name"
             multiple
             accept="*/*"
