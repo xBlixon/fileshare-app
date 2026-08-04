@@ -6,6 +6,7 @@ use App\Http\Requests\StoreShareRequest;
 use App\Models\Share;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,17 +33,16 @@ class ShareController extends Controller
      */
     public function store(StoreShareRequest $request)
     {
-        //        Log::debug($request);
-
-        //        /** @var Share $share */
         $share = auth()->user()->shares()->create($request->safe()->only(['title', 'description']));
-        $request->collect('files')->each(
-            function (/** @var UploadedFile $file */ $file) use ($share) {
-                $path = $file->store("shares/$share->id");
-                $share->files()->create([
-                    'path' => $path,
-                ]);
-            });
+
+        $files = $request->file('files');
+
+        foreach ($files as $file) {
+            $path = $file->store("shares/$share->id");
+            $share->files()->create([
+                'path' => $path
+            ]);
+        }
 
         return back();
     }
