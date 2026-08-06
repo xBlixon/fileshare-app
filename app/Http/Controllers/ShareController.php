@@ -44,7 +44,9 @@ class ShareController extends Controller
             ]);
         }
 
-        return back();
+        Inertia::flash('success', 'Your share has been created!');
+
+        return to_route('share.show', $share);
     }
 
     /**
@@ -52,7 +54,10 @@ class ShareController extends Controller
      */
     public function show(Share $share)
     {
-        //
+        return Inertia::render('Share/Show',
+            [
+                'share' => $share
+            ]);
     }
 
     /**

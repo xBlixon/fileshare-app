@@ -7,4 +7,6 @@ Route::prefix('share')->middleware(['auth', 'verified'])->group(function () {
     Route::get('new', [ShareController::class, 'create'])->name('share.create');
 
     Route::post('new', [ShareController::class, 'store'])->name('share.store');
+
+    Route::get('{share}', [ShareController::class, 'show'])->name('share.show');
 });

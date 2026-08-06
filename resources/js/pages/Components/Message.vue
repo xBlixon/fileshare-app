@@ -54,7 +54,7 @@ onUnmounted(() => {
         <div
             :class="
                 'flex items-center justify-center ' +
-                'fixed bottom-0 right-0 m-4 rounded-xl px-4 py-2' +
+                'fixed bottom-0 right-0 m-4 rounded-xl px-4 py-2 ' +
                 style
             "
             v-if="isVisible"
