@@ -1,7 +1,17 @@
 <?php
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\DuskTestCase;
 use Tests\TestCase;
+
+pest()->extend(DuskTestCase::class)
+    ->use(Illuminate\Foundation\Testing\DatabaseMigrations::class)
+    ->in('Browser');
+
+pest()->afterAll(function () {
+    // Needs to be fixed
+    Storage::disk('testing')->deleteDirectory('/');
+})->in('Browser');
 
 /*
 |--------------------------------------------------------------------------

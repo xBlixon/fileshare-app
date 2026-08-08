@@ -60,6 +60,13 @@ return [
             'report' => false,
         ],
 
+        'testing' => [
+            'driver' => 'local',
+            'root' => base_path('tests/storage'),
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

@@ -11,7 +11,10 @@
 /storage/*.key
 /storage/pail
 /vendor
+/tests/storage
 .env
+.env.dusk.*
+!.env.dusk.example
 .env.backup
 .env.production
 .phpactor.json

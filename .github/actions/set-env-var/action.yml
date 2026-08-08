@@ -1,0 +1,17 @@
+name: set-env-var
+description: Sets KEY=VALUE for given .env file
+
+inputs:
+  file:
+    description: .env file to be configured
+  key:
+    description: .env variable key
+  value:
+    description: .env variable value
+
+runs:
+  using: composite
+  steps:
+    - name: '@[${{inputs.file}}]: ${{inputs.key}}=${{inputs.value}}'
+      shell: bash
+      run: sed -i 's|(#\s*)?${{inputs.key}}=\w*|${{inputs.key}}=${{ inputs.value }}|' ${{inputs.file}}

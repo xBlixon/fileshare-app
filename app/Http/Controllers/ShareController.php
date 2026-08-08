@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreShareRequest;
 use App\Models\Share;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -40,7 +38,7 @@ class ShareController extends Controller
         foreach ($files as $file) {
             $path = $file->store("shares/$share->id");
             $share->files()->create([
-                'path' => $path
+                'path' => $path,
             ]);
         }
 
@@ -56,7 +54,7 @@ class ShareController extends Controller
     {
         return Inertia::render('Share/Show',
             [
-                'share' => $share
+                'share' => $share,
             ]);
     }
 
