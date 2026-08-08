@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreShareRequest;
 use App\Models\Share;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -29,7 +30,7 @@ class ShareController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreShareRequest $request)
+    public function store(StoreShareRequest $request): RedirectResponse
     {
         $share = auth()->user()->shares()->create($request->safe()->only(['title', 'description']));
 
@@ -50,7 +51,7 @@ class ShareController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Share $share)
+    public function show(Share $share): Response
     {
         return Inertia::render('Share/Show',
             [
@@ -61,7 +62,7 @@ class ShareController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Share $share)
+    public function edit(Share $share): void
     {
         //
     }
@@ -69,7 +70,7 @@ class ShareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Share $share)
+    public function update(Request $request, Share $share): void
     {
         //
     }
@@ -77,7 +78,7 @@ class ShareController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Share $share)
+    public function destroy(Share $share): void
     {
         //
     }

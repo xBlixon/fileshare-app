@@ -14,11 +14,17 @@ class Share extends Model
     /** @use HasFactory<\Database\Factories\ShareFactory> */
     use HasFactory;
 
+    /**
+     * @return HasMany<File, $this>
+     */
     public function files(): HasMany
     {
         return $this->hasMany(File::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

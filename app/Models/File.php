@@ -13,6 +13,9 @@ class File extends Model
     /** @use HasFactory<\Database\Factories\FileFactory> */
     use HasFactory;
 
+    /**
+     * @return BelongsTo<Share, $this>
+     */
     public function share(): BelongsTo
     {
         return $this->belongsTo(Share::class);

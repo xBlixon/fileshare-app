@@ -43,6 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    /**
+     * @return HasMany<Share, $this>
+     */
     public function shares(): HasMany
     {
         return $this->hasMany(Share::class);
