@@ -16,7 +16,7 @@ const props = defineProps({
         <Navbar />
         <div
             :class="
-                'mx-auto flex-1 w-full' +
+                'mx-auto w-full flex-1' +
                 (props.verticalCenter ? ' flex flex-col justify-center' : '')
             "
         >

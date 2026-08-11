@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ShareFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['title', 'description'])]
 class Share extends Model
 {
-    /** @use HasFactory<\Database\Factories\ShareFactory> */
+    /** @use HasFactory<ShareFactory> */
     use HasFactory;
 
     /**

@@ -2,10 +2,6 @@
 import { useForm, usePage } from '@inertiajs/vue3';
 import { FileUp } from '@lucide/vue';
 import { computed } from 'vue';
-import { index as login } from '@/actions/App/Http/Controllers/LoginController';
-import { logout } from '@/actions/App/Http/Controllers/LogoutController';
-import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
-import { create } from '@/actions/App/Http/Controllers/ShareController';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -16,6 +12,10 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import ThemeToggle from '@/pages/Components/ThemeToggle.vue';
+import { index as login } from '@/actions/App/Http/Controllers/LoginController';
+import { logout } from '@/actions/App/Http/Controllers/LogoutController';
+import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
+import { create } from '@/actions/App/Http/Controllers/ShareController';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -49,7 +49,11 @@ function sendLogout() {
                             'flex-row gap-2',
                         ]"
                     >
-                        <a :href="create().url" class="text-emerald-500" v-if="user">
+                        <a
+                            :href="create().url"
+                            class="text-emerald-500"
+                            v-if="user"
+                        >
                             <FileUp class="text-inherit" />
                             New share
                         </a>
@@ -69,7 +73,9 @@ function sendLogout() {
             <NavigationMenuList class="h-full items-center space-x-2">
                 <ThemeToggle />
                 <NavigationMenuItem v-if="user">
-                    <NavigationMenuTrigger>{{ user.name }}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>{{
+                        user.name
+                    }}</NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul class="grid w-[300px] gap-4">
                             <li>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
-import { store } from '@/actions/App/Http/Controllers/RegisterController';
 import { CardFooter } from '@/components/ui/card';
 import FormError from '@/pages/Components/Form/FormError.vue';
 import FormInput from '@/pages/Components/Form/FormInput.vue';
 import FormLayout from '@/pages/Components/Form/FormLayout.vue';
 import Submit from '@/pages/Components/Form/Submit.vue';
 import Layout from '@/pages/Templates/Layout.vue';
+import { store } from '@/actions/App/Http/Controllers/RegisterController';
 
 const route = store();
 </script>

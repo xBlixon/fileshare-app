@@ -14,7 +14,6 @@ const props = defineProps({
 });
 
 const widthStyle = props.wide ? 'max-w-6xl' : 'max-w-sm';
-
 </script>
 
 <template>

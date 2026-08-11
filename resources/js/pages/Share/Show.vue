@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Layout from '@/pages/Templates/Layout.vue';
 import { usePage } from '@inertiajs/vue3';
+import Layout from '@/pages/Templates/Layout.vue';
 
 const page = usePage();
 </script>
