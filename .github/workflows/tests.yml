@@ -78,6 +78,19 @@ jobs:
       - name: Run Laravel Server
         run: php artisan serve --no-reload --env=dusk.${{ env.APP_ENV }} &
 
+      - name: Wait for Laravel Server
+        run: |
+          for i in {1..30}; do
+            if curl -f http://127.0.0.1:8000 > /dev/null 2>&1; then
+              echo "Server is ready"
+              exit 0
+            fi
+            echo "Waiting for server... ($i/30)"
+            sleep 1
+          done
+          echo "Server failed to start"
+          exit 1
+
       - name: Run Dusk Tests
         continue-on-error: true
         run: php artisan dusk
