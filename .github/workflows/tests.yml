@@ -80,3 +80,6 @@ jobs:
 
       - name: Run Dusk Tests
         run: php artisan dusk
+
+      - name: Dump logs
+        uses: './.github/actions/show-logs'
