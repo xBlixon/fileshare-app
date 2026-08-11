@@ -1,0 +1,9 @@
+name: show-logs
+description: Dumps storage/logs/laravel.log file to output
+
+runs:
+  using: composite
+  steps:
+    - name: Dump logs
+      shell: bash
+      run: cat storage/logs/laravel.log || exit 0

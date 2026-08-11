@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Props {
     name: string;
@@ -13,7 +14,15 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <Label :for="props.name">{{ props.label }}</Label>
+    <label :for="props.name">{{ props.label }}</label>
+    <Textarea
+        :name="props.name"
+        :placeholder="props.placeholder"
+        :id="props.name"
+        class="mb-2"
+        v-model="model"
+        v-if="props.type == 'textarea'"
+    />
     <Input
         :name="props.name"
         :type="props.type"
@@ -21,6 +30,7 @@ const props = defineProps<Props>();
         :id="props.name"
         class="mb-2"
         v-model="model"
+        v-else
     />
 </template>
 

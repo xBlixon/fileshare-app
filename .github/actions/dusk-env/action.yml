@@ -1,0 +1,63 @@
+name: dusk-env
+description: Configures .env for Laravel Dusk
+
+inputs:
+  APP_ENV:
+    description: Environment type
+  APP_URL:
+    description: Base URL of the application
+  DB_DATABASE:
+    description: Path to the dusk testing database (.sqlite)
+    default: database/dusk.sqlite
+  MAIL_MAILER:
+    description: Mailer driver
+    default: log
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare .env.dusk.${{ inputs.APP_ENV }}
+      shell: bash
+      run: cp .env.dusk.example .env.dusk.${{ inputs.APP_ENV }}
+
+    - name: Set APP_ENV to ${{ inputs.APP_ENV }}
+      uses: './.github/actions/set-env-var'
+      with:
+        file: .env.dusk.${{ inputs.APP_ENV }}
+        key: APP_ENV
+        value: ${{ inputs.APP_ENV }}
+
+    - name: Set APP_URL to ${{ inputs.APP_URL }}
+      uses: './.github/actions/set-env-var'
+      with:
+        file: .env.dusk.${{ inputs.APP_ENV }}
+        key: APP_URL
+        value: ${{ inputs.APP_URL }}
+
+    - name: Set DB_DATABASE to ${{ inputs.DB_DATABASE }}
+      uses: './.github/actions/set-env-var'
+      with:
+        file: .env.dusk.${{ inputs.APP_ENV }}
+        key: DB_DATABASE
+        value: ${{ inputs.DB_DATABASE }}
+
+    - name: Create Dusk Database
+      shell: bash
+      run: touch ${{ inputs.DB_DATABASE }}
+
+    - name: Upgrade Chrome Driver
+      shell: bash
+      run: php artisan dusk:chrome-driver --detect
+
+    - name: Set MAIL_MAILER to ${{ inputs.MAIL_MAILER }}
+      uses: './.github/actions/set-env-var'
+      with:
+        file: .env.dusk.${{ inputs.APP_ENV }}
+        key: MAIL_MAILER
+        value: ${{ inputs.MAIL_MAILER }}
+
+    - name: Generate app key
+      shell: bash
+      run: php artisan key:generate --env=dusk.${{ inputs.APP_ENV }}
+
+

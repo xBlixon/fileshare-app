@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { useForm, usePage } from '@inertiajs/vue3';
 import { FileUp } from '@lucide/vue';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { index as login } from '@/actions/App/Http/Controllers/LoginController';
+import { logout } from '@/actions/App/Http/Controllers/LogoutController';
 import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
+import { create } from '@/actions/App/Http/Controllers/ShareController';
 import {
     NavigationMenu,
     NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    NavigationMenuViewport,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import ThemeToggle from '@/pages/Components/ThemeToggle.vue';
-import { logout } from '@/actions/App/Http/Controllers/LogoutController';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
@@ -50,7 +49,7 @@ function sendLogout() {
                             'flex-row gap-2',
                         ]"
                     >
-                        <a href="#" class="text-emerald-500" v-if="user">
+                        <a :href="create().url" class="text-emerald-500" v-if="user">
                             <FileUp class="text-inherit" />
                             New share
                         </a>
