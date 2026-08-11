@@ -6,4 +6,4 @@ runs:
   steps:
     - name: Dump logs
       shell: bash
-      run: cat storage/logs/laravel.log
+      run: cat storage/logs/laravel.log || exit 0
