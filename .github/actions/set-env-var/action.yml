@@ -14,4 +14,4 @@ runs:
   steps:
     - name: '@[${{inputs.file}}]: ${{inputs.key}}=${{inputs.value}}'
       shell: bash
-      run: sed -i 's|(#\s*)?${{inputs.key}}=\w*|${{inputs.key}}=${{ inputs.value }}|' ${{inputs.file}}
+      run: sed -i -E 's|^(#\s*)?${{inputs.key}}=.*|${{inputs.key}}=${{ inputs.value }}|' ${{inputs.file}}
