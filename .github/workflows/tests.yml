@@ -76,7 +76,7 @@ jobs:
         run: ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
 
       - name: Run Laravel Server
-        run: php artisan serve --no-reload &
+        run: php artisan serve --no-reload --env=dusk.${{ env.APP_ENV }} &
 
       - name: Run Dusk Tests
         run: php artisan dusk
