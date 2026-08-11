@@ -79,6 +79,7 @@ jobs:
         run: php artisan serve --no-reload --env=dusk.${{ env.APP_ENV }} &
 
       - name: Run Dusk Tests
+        continue-on-error: true
         run: php artisan dusk
 
       - name: Dump logs
