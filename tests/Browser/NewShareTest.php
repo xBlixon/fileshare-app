@@ -37,7 +37,7 @@ it('creates a new share', function () {
             ->attach('@files', $fileList)
             ->screenshot('new-share-added-files')
             ->press('@submit')
-            ->waitForText($title, 10)
+            ->waitForText($title)
             ->screenshot('new-share-submitted');
     });
 
