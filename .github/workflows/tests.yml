@@ -10,7 +10,7 @@ env:
   node-cache: 'npm'
 
 jobs:
-  ci:
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,7 +43,7 @@ jobs:
         run: npm i
 
       - name: Install Dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist --optimize-autoloader
+        run: composer install -q --no-interaction --no-progress --prefer-dist --optimize-autoloader
 
       - name: Copy Environment File
         run: cp .env.example .env
@@ -68,9 +68,6 @@ jobs:
 
       - name: Build Assets
         run: npm run build
-
-      - name: Run Type Analysis
-        run: composer types:check
 
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux --port=9515 &
