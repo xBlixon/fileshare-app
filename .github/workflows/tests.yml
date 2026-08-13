@@ -79,5 +79,9 @@ jobs:
         continue-on-error: true
         run: php artisan dusk
 
+      - name: Run Tests with Coverage
+        continue-on-error: true
+        run: php artisan test --coverage
+
       - name: Dump logs
         uses: './.github/actions/show-logs'
