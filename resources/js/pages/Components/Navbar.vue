@@ -2,6 +2,10 @@
 import { useForm, usePage } from '@inertiajs/vue3';
 import { FileUp } from '@lucide/vue';
 import { computed } from 'vue';
+import { index as login } from '@/actions/App/Http/Controllers/LoginController';
+import { logout } from '@/actions/App/Http/Controllers/LogoutController';
+import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
+import { create } from '@/actions/App/Http/Controllers/ShareController';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -12,10 +16,6 @@ import {
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import ThemeToggle from '@/pages/Components/ThemeToggle.vue';
-import { index as login } from '@/actions/App/Http/Controllers/LoginController';
-import { logout } from '@/actions/App/Http/Controllers/LogoutController';
-import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
-import { create } from '@/actions/App/Http/Controllers/ShareController';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
