@@ -2,7 +2,12 @@
 import { usePage } from '@inertiajs/vue3';
 import Layout from '@/pages/Templates/Layout.vue';
 
-const page = usePage();
+const page = usePage<{
+    share: {
+        title: string;
+        description: string;
+    };
+}>();
 </script>
 
 <template>

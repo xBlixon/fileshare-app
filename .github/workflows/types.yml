@@ -1,0 +1,49 @@
+name: types
+
+on: push
+
+env:
+  node-version: '24'
+  node-cache: 'npm'
+
+jobs:
+  types:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.4', '8.5']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: PHP Setup
+        uses: "./.github/actions/php-setup"
+        with:
+          php-version: ${{ matrix.php-version }}
+          php-extensions: ''
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.node-version }}
+          cache: ${{ env.node-cache }}
+
+      - name: Install Node Dependencies
+        run: npm i
+
+      - name: Install Dependencies
+        run: composer install -q --no-interaction --no-progress --prefer-dist
+
+      - name: Build Assets
+        run: npm run build
+
+      - name: PHPStan
+        run: composer types:check
+
+      - name: Vue TypeScript
+        run: npm run types:check
+
+      - name: ESLint
+        run: npm run lint:check

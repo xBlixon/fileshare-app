@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
-import Layout from '@/pages/Templates/Layout.vue';
 import { send } from '@/actions/App/Http/Controllers/EmailVerificationController';
+import Layout from '@/pages/Templates/Layout.vue';
 
 const resend = send();
 </script>
