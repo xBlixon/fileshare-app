@@ -7,12 +7,10 @@ use Tests\TestCase;
 
 pest()->extend(DuskTestCase::class)
     ->use(DatabaseMigrations::class)
+    ->beforeAll(function () {
+        clean_dusk_storage();
+    })
     ->in('Browser');
-
-pest()->afterAll(function () {
-    // Needs to be fixed
-    Storage::disk('testing')->deleteDirectory('/');
-})->in('Browser');
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +56,22 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function clean_dusk_storage(): void
+{
+    $dir = __DIR__.'/storage';
+
+    if (! is_dir($dir)) {
+        return;
+    }
+
+    $items = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    foreach ($items as $item) {
+        $item->isDir() ? @rmdir($item->getRealPath()) : @unlink($item->getRealPath());
+    }
 }
