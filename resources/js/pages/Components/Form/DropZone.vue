@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AudioLines, Clapperboard, FileText, X } from '@lucide/vue';
 import { filesize } from 'filesize';
-import type { HTMLAttributes } from 'vue';
+import { HTMLAttributes, onMounted } from 'vue';
 import { ref, useTemplateRef } from 'vue';
 import {
     Attachment,
@@ -114,32 +114,34 @@ function removeFile(index: number) {
     syncInputFiles();
 }
 
-// When dropping by accident anywhere on the screen besides drop zone
-// Browser will not open file in the same window (quality of life).
-window.addEventListener('drop', (e: DragEvent) => {
-    if (
-        e.dataTransfer &&
-        e.dataTransfer.items[0] &&
-        e.dataTransfer.items[0].kind === 'file'
-    ) {
+onMounted(async () => {
+    // When dropping by accident anywhere on the screen besides drop zone
+    // Browser will not open file in the same window (quality of life).
+    window.addEventListener('drop', (e: DragEvent) => {
+        if (
+            e.dataTransfer &&
+            e.dataTransfer.items[0] &&
+            e.dataTransfer.items[0].kind === 'file'
+        ) {
+            e.preventDefault();
+        }
+    });
+    window.addEventListener('dragover', (e: DragEvent) => {
+        if (!e.dataTransfer) {
+            return;
+        }
+
+        const fileItems = Array.from(e.dataTransfer.items).filter(
+            (item) => item.kind === 'file',
+        );
+
+        if (fileItems.length === 0) {
+            return;
+        }
+
         e.preventDefault();
-    }
-});
-window.addEventListener('dragover', (e: DragEvent) => {
-    if (!e.dataTransfer) {
-        return;
-    }
-
-    const fileItems = Array.from(e.dataTransfer.items).filter(
-        (item) => item.kind === 'file',
-    );
-
-    if (fileItems.length === 0) {
-        return;
-    }
-
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'none';
+        e.dataTransfer.dropEffect = 'none';
+    });
 });
 </script>
 
