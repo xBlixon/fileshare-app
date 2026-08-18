@@ -4,6 +4,7 @@ import { MonitorCog, Moon, Sun } from '@lucide/vue';
 import { useColorMode } from '@vueuse/core';
 import { computed } from 'vue';
 import { Button } from '@/components/ui/button';
+import ClientOnly from '@/pages/Components/ClientOnly.vue';
 
 const mode = useColorMode();
 function toggleTheme() {
@@ -37,8 +38,14 @@ const themeLabel = computed<string>(() => labelMap[mode.value]);
 
 <template>
     <Button @click="toggleTheme" variant="outline">
-        <component :is="themeIcon"></component>
-        {{ themeLabel }}
+        <ClientOnly>
+            <component :is="themeIcon"></component>
+            {{ themeLabel }}
+            <template #server>
+                <MonitorCog/>
+                System
+            </template>
+        </ClientOnly>
     </Button>
 </template>
 
