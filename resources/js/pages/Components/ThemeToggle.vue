@@ -42,7 +42,7 @@ const themeLabel = computed<string>(() => labelMap[mode.value]);
             <component :is="themeIcon"></component>
             {{ themeLabel }}
             <template #server>
-                <MonitorCog/>
+                <MonitorCog />
                 System
             </template>
         </ClientOnly>

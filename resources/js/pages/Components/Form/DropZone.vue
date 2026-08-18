@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { AudioLines, Clapperboard, FileText, X } from '@lucide/vue';
 import { filesize } from 'filesize';
-import { HTMLAttributes, onMounted } from 'vue';
+import type { HTMLAttributes} from 'vue';
+import { onMounted } from 'vue';
 import { ref, useTemplateRef } from 'vue';
 import {
     Attachment,
