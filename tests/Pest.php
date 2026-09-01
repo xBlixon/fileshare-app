@@ -7,8 +7,8 @@ use Tests\TestCase;
 
 pest()->extend(DuskTestCase::class)
     ->use(DatabaseMigrations::class)
-    ->beforeAll(function () {
-        clean_dusk_storage();
+    ->beforeEach(function () {
+        Storage::fake('local');
     })
     ->in('Browser');
 
@@ -25,6 +25,9 @@ pest()->extend(DuskTestCase::class)
 
 pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
+    ->beforeEach(function () {
+        Storage::fake('local');
+    })
     ->in('Feature');
 
 pest()->extend(TestCase::class)
