@@ -3,7 +3,7 @@
 use App\Http\Requests\LoginRequest;
 
 it('validates login request without remember me field', function () {
-    $request = new LoginRequest();
+    $request = new LoginRequest;
     $validator = Validator::make([
         'email' => 'foo@bar.baz',
         'password' => '12345678',
@@ -12,7 +12,7 @@ it('validates login request without remember me field', function () {
 });
 
 it('validates login request with remember me field set to false', function () {
-    $request = new LoginRequest();
+    $request = new LoginRequest;
     $validator = Validator::make([
         'email' => 'foo@bar.baz',
         'password' => '12345678',
@@ -22,7 +22,7 @@ it('validates login request with remember me field set to false', function () {
 });
 
 it('validates login request with remember me field set to true', function () {
-    $request = new LoginRequest();
+    $request = new LoginRequest;
     $validator = Validator::make([
         'email' => 'foo@bar.baz',
         'password' => '12345678',

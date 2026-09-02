@@ -34,10 +34,10 @@ it('rejects invalid email', function () {
 
     $this->fromRoute('login.index')
         ->post(route('login.login'),
-        [
-            'email' => 'wrong@email.net',
-            'password' => $password,
-        ])
+            [
+                'email' => 'wrong@email.net',
+                'password' => $password,
+            ])
         ->assertRedirectToRoute('login.index')
         ->assertSessionHasErrors(['email' => 'Invalid email or password.']);
 });
