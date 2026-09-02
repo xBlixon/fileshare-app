@@ -6,9 +6,14 @@ it('redirects verified users to specified route', function () {
     Route::get('not-verified', fn () => 'Not verified page')
         ->middleware('not-verified:verified');
 
-    Route::get('verified', fn () => 'Verified page')->name('verified');
+    Route::name('verified')->get('verified', fn () => 'Verified page')->name('verified');
 
-    Route::getRoutes()->refreshNameLookups(); // Required for test to see 'verified' route
+    /**
+     * Commented below is an alternative to the line above
+     * Source: https://darkghosthunter.medium.com/laravel-fixing-route-not-found-319f3b6434fc
+     */
+//    Route::get('verified', fn () => 'Verified page')->name('verified');
+//    Route::getRoutes()->refreshNameLookups();
 
     $verifiedUser = User::factory()->create([
         'email_verified_at' => now(),
