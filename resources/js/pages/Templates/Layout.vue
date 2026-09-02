@@ -20,7 +20,7 @@ const props = defineProps({
                 (props.verticalCenter ? ' flex flex-col justify-center' : '')
             "
         >
-            <div class="flex justify-center">
+            <div class="flex justify-center flex-col items-center">
                 <slot />
             </div>
         </div>

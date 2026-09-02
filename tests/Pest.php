@@ -25,7 +25,13 @@ pest()->extend(DuskTestCase::class)
 
 pest()->extend(TestCase::class)
     ->use(RefreshDatabase::class)
+    ->beforeEach(function () {
+        Storage::fake('local');
+    })
     ->in('Feature');
+
+pest()->extend(TestCase::class)
+    ->in('Unit');
 
 /*
 |--------------------------------------------------------------------------

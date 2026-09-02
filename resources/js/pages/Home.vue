@@ -9,6 +9,7 @@ const greeting = page.props.greeting;
 
 <template>
     <Layout>
-        {{ greeting }}
+        <h1>Homepage</h1>
+        <p>{{ greeting }}</p>
     </Layout>
 </template>
