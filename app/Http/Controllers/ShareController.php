@@ -37,10 +37,12 @@ class ShareController extends Controller
         $files = $request->file('files');
 
         foreach ($files as $file) {
-            $path = $file->store("shares/$share->id");
+            $path = "shares/$share->id/";
+            $name = $file->getClientOriginalName();
+            $file->storeAs($path, $name);
             $share->files()->create([
                 'path' => $path,
-                'name' => $file->getClientOriginalName(),
+                'name' => $name,
                 'size' => $file->getSize(),
             ]);
         }
