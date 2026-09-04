@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 
-    private function cleanup()
+    private function cleanup(): void
     {
         Storage::deleteDirectory('shares');
     }
