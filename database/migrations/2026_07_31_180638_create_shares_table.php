@@ -25,6 +25,7 @@ return new class extends Migration
             $table->id();
             $table->string('path');
             $table->string('name');
+            $table->integer('size');
             $table->foreignIdFor(Share::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -40,6 +40,8 @@ class ShareController extends Controller
             $path = $file->store("shares/$share->id");
             $share->files()->create([
                 'path' => $path,
+                'name' => $file->getClientOriginalName(),
+                'size' => $file->getSize(),
             ]);
         }
 

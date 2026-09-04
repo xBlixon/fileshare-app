@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['path', 'name'])]
+#[Fillable(['path', 'name', 'size'])]
 class File extends Model
 {
     /** @use HasFactory<FileFactory> */
