@@ -17,12 +17,13 @@ class FileFactory extends Factory
         return $this
 
             ->afterMaking(function (File $file) {
-                $file->path = 'shares/'.$file->share_id.'/'.$this->faker->uuid().'.txt';
+                $file->path = 'shares/'.$file->share_id.'/';
+                $file->name = $this->faker->uuid().'.txt';
             })
 
             ->afterCreating(function (File $file) {
                 Storage::put(
-                    path: $file->path,
+                    path: $file->path.$file->name,
                     contents: "Hello there!\n\n"
                     .$this->faker->paragraph()
                 );
