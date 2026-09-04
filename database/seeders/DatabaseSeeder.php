@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\File;
+use App\Models\Share;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,10 +17,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        UserFactory::new()->has(
+            Share::factory()->has(
+                File::factory()->count(2)
+            )
+        )
+            ->create(
+                [
+                    'name' => 'John Doe',
+                    'email' => 'me@me.me',
+                    'password' => 'password',
+                ]);
+
         $this->call([
             UserSeeder::class,
+            ShareSeeder::class,
+            FileSeeder::class,
         ]);
-
     }
 }

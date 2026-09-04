@@ -19,8 +19,8 @@ class ShareFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()->create(),
-            'title' => $this->faker->title(),
+            'user_id' => User::factory(),
+            'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
         ];
     }

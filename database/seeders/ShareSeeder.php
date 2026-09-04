@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use Database\Factories\ShareFactory;
 use Illuminate\Database\Seeder;
 
 class ShareSeeder extends Seeder
@@ -11,6 +13,11 @@ class ShareSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        User::all()->each(function ($user) {
+            ShareFactory::new()
+                ->for($user)
+                ->count(rand(0, 3))
+                ->create();
+        });
     }
 }

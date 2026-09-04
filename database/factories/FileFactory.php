@@ -12,6 +12,23 @@ use Illuminate\Support\Facades\Storage;
  */
 class FileFactory extends Factory
 {
+    public function configure(): static
+    {
+        return $this
+
+            ->afterMaking(function (File $file) {
+                $file->path = 'shares/'.$file->share_id.'/'.$this->faker->uuid().'.txt';
+            })
+
+            ->afterCreating(function (File $file) {
+                Storage::put(
+                    path: $file->path,
+                    contents: "Hello there!\n\n"
+                    .$this->faker->paragraph()
+                );
+            });
+    }
+
     /**
      * Define the model's default state.
      *
@@ -19,18 +36,8 @@ class FileFactory extends Factory
      */
     public function definition(): array
     {
-        $share = Share::factory()->create();
-        $path = 'shares/'.$share->id.'/'.$this->faker->uuid().'.txt';
-
-        Storage::put(
-            path: $path,
-            contents: "Hello there!\n\n"
-            .$this->faker->paragraph()
-        );
-
         return [
-            'share_id' => $share,
-            'path' => $path,
+            'share_id' => Share::factory(),
         ];
     }
 }
