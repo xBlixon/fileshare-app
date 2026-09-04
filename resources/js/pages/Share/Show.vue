@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { X, FileText, Clapperboard, AudioLines } from '@lucide/vue';
 import { usePage } from '@inertiajs/vue3';
-import Layout from '@/pages/Templates/Layout.vue';
+import mime from "mime";
 import { show } from '@/actions/App/Http/Controllers/FileController';
 import {
     Attachment,
@@ -14,11 +13,11 @@ import {
     AttachmentTitle,
     AttachmentTrigger,
 } from '@/components/ui/attachment';
-import type file from '@/types/app/file';
 import fileDescription from '@/functions/FileDescription';
 import getFileIcon from "@/functions/GetFileIcon";
 import getFileType from "@/functions/GetFileType";
-import mime from "mime";
+import Layout from '@/pages/Templates/Layout.vue';
+import type file from '@/types/app/file';
 
 const page = usePage<{
     share: {
