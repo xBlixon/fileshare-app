@@ -7,6 +7,7 @@ use App\Models\Share;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->cleanup();
+
         UserFactory::new()->has(
             Share::factory()->has(
                 File::factory()->count(2)
@@ -34,5 +37,10 @@ class DatabaseSeeder extends Seeder
             ShareSeeder::class,
             FileSeeder::class,
         ]);
+    }
+
+    private function cleanup()
+    {
+        Storage::deleteDirectory('shares');
     }
 }

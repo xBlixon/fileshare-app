@@ -14,7 +14,6 @@ class FileSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('shares');
 
         Share::all()->each(function (Share $share) {
 
