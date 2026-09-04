@@ -9,7 +9,7 @@ import Layout from '@/pages/Templates/Layout.vue';
 </script>
 
 <template>
-    <Layout>
+    <Layout horizontal-center>
         <FormLayout
             title="Share new files"
             description="Upload all files you want to share."

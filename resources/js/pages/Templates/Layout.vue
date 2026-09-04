@@ -7,6 +7,7 @@ const page = usePage();
 
 const props = defineProps({
     verticalCenter: Boolean,
+    horizontalCenter: Boolean,
 });
 </script>
 
@@ -16,11 +17,15 @@ const props = defineProps({
         <Navbar />
         <div
             :class="
-                'mx-auto w-full flex-1' +
+                'xl:w-7xl sm:w-2xl w-full mx-auto flex-1 ' +
                 (props.verticalCenter ? ' flex flex-col justify-center' : '')
             "
         >
-            <div class="flex flex-col items-center justify-center">
+            <div
+                :class="
+                    props.horizontalCenter ? 'flex flex-col items-center' : ''
+                "
+            >
                 <slot />
             </div>
         </div>
