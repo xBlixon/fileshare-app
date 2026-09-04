@@ -4,8 +4,6 @@ import mime from "mime";
 import { show } from '@/actions/App/Http/Controllers/FileController';
 import {
     Attachment,
-    AttachmentAction,
-    AttachmentActions,
     AttachmentContent,
     AttachmentDescription,
     AttachmentGroup,
