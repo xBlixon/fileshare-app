@@ -55,6 +55,8 @@ class ShareController extends Controller
      */
     public function show(Share $share): Response
     {
+        $share->load('files:id,share_id,name,size');
+
         return Inertia::render('Share/Show',
             [
                 'share' => $share,
