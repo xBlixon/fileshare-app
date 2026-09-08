@@ -14,9 +14,14 @@ class ShareController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return Inertia::render('Share/Index');
+        $shares = $request->user()->shares()->cardInfo()->get();
+
+        return Inertia::render('Share/Index',
+            [
+                'shares' => $shares,
+            ]);
     }
 
     /**

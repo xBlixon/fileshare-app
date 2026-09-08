@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Database\Factories\ShareFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,5 +31,12 @@ class Share extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    #[Scope]
+    protected function cardInfo(Builder $query): void
+    {
+        $query->select(['id', 'title', 'description', 'created_at'])
+            ->withCount('files');
     }
 }
