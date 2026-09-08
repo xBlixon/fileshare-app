@@ -5,7 +5,7 @@ import { computed } from 'vue';
 import { index as login } from '@/actions/App/Http/Controllers/LoginController';
 import { logout } from '@/actions/App/Http/Controllers/LogoutController';
 import { index as register } from '@/actions/App/Http/Controllers/RegisterController';
-import { create } from '@/actions/App/Http/Controllers/ShareController';
+import { create, index } from '@/actions/App/Http/Controllers/ShareController';
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -88,7 +88,7 @@ function sendLogout() {
                                     </a>
                                 </NavigationMenuLink>
                                 <NavigationMenuLink as-child>
-                                    <a href="#">
+                                    <a :href="index().url">
                                         <div class="font-medium">My shares</div>
                                         <div class="text-muted-foreground">
                                             See your shared files. 🗃️
