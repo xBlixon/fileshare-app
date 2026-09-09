@@ -8,7 +8,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import formatSmartDate from '@/functions/SmartDate';
+import formatSmartDate from '@/functions/FormatSmartDate';
 import type ShareInfo from '@/types/app/shareInfo';
 
 const props = defineProps<{
