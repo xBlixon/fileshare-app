@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
-import mime from "mime";
+import mime from 'mime';
 import { show } from '@/actions/App/Http/Controllers/FileController';
 import {
     Attachment,
@@ -12,8 +12,8 @@ import {
     AttachmentTrigger,
 } from '@/components/ui/attachment';
 import fileDescription from '@/functions/FileDescription';
-import getFileIcon from "@/functions/GetFileIcon";
-import getFileType from "@/functions/GetFileType";
+import getFileIcon from '@/functions/GetFileIcon';
+import getFileType from '@/functions/GetFileType';
 import Layout from '@/pages/Templates/Layout.vue';
 import type file from '@/types/app/file';
 
@@ -24,7 +24,6 @@ const page = usePage<{
         files: file[];
     };
 }>();
-
 </script>
 
 <template>
@@ -36,14 +35,15 @@ const page = usePage<{
             <p>{{ page.props.share.description }}</p>
         </div>
         <div class="mx-auto w-full py-12">
-            <AttachmentGroup class="w-full flex justify-center flex-wrap">
-                <template
-                    v-for="file in page.props.share.files"
-                    :key="file.id"
-                >
+            <AttachmentGroup class="flex w-full flex-wrap justify-center">
+                <template v-for="file in page.props.share.files" :key="file.id">
                     <Attachment orientation="vertical">
                         <AttachmentMedia
-                            v-if="(mime.getType(getFileType(file.name)) ?? '' ).startsWith('image/')"
+                            v-if="
+                                (
+                                    mime.getType(getFileType(file.name)) ?? ''
+                                ).startsWith('image/')
+                            "
                             variant="image"
                         >
                             <img :src="show(file).url" :alt="file.name" />
@@ -53,9 +53,7 @@ const page = usePage<{
                             <component :is="getFileIcon(file)" />
                         </AttachmentMedia>
                         <AttachmentContent>
-                            <AttachmentTitle>{{
-                                file.name
-                            }}</AttachmentTitle>
+                            <AttachmentTitle>{{ file.name }}</AttachmentTitle>
                             <AttachmentDescription>{{
                                 fileDescription(file)
                             }}</AttachmentDescription>

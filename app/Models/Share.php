@@ -33,6 +33,9 @@ class Share extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @param  Builder<File>  $query
+     */
     #[Scope]
     protected function cardInfo(Builder $query): void
     {

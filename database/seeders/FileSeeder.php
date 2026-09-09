@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Share;
 use Database\Factories\FileFactory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 
 class FileSeeder extends Seeder
 {

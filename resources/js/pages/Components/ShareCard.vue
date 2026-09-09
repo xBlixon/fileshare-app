@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import ShareInfo from '@/types/app/shareInfo';
+import { File } from '@lucide/vue';
+import { show } from '@/actions/App/Http/Controllers/ShareController';
 import {
     Card,
     CardContent,
@@ -8,8 +9,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import formatSmartDate from '@/functions/SmartDate';
-import { File } from '@lucide/vue';
-import { show } from '@/actions/App/Http/Controllers/ShareController';
+import type ShareInfo from '@/types/app/shareInfo';
 
 const props = defineProps<{
     share: ShareInfo;
@@ -27,11 +27,12 @@ const props = defineProps<{
             </CardDescription>
         </CardHeader>
         <CardContent class="mt-auto">
-            <div class="flex justify-between text-xs text-muted-foreground">
+            <div class="text-muted-foreground flex justify-between text-xs">
                 <span>{{ formatSmartDate(share.created_at) }}</span>
-                <span class="flex items-center">{{ share.files_count }} <File class="w-[1.2em] h-[1.2em]" /></span>
+                <span class="flex items-center"
+                    >{{ share.files_count }} <File class="h-[1.2em] w-[1.2em]"
+                /></span>
             </div>
-
         </CardContent>
         <a :href="show(share.id).url" class="absolute inset-0"></a>
     </Card>

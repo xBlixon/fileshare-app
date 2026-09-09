@@ -1,7 +1,10 @@
-import { formatRelative, format, isBefore, addHours, subDays } from 'date-fns';
-import { pl, enUS } from 'date-fns/locale';
+import { formatRelative, format, addHours } from 'date-fns';
+// import { pl, enUS } from 'date-fns/locale';
 
-export default function formatSmartDate(dateInput: string | Date, locale = pl): string {
+export default function formatSmartDate(
+    dateInput: string | Date,
+    locale = undefined,
+): string {
     const date = new Date(dateInput);
     const now = new Date();
 
