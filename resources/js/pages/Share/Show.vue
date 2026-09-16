@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
+import { Form, usePage } from '@inertiajs/vue3';
 import mime from 'mime';
 import { show } from '@/actions/App/Http/Controllers/FileController';
+import { destroy } from '@/actions/App/Http/Controllers/ShareController';
 import {
     Attachment,
     AttachmentContent,
@@ -14,11 +15,14 @@ import {
 import fileDescription from '@/functions/FileDescription';
 import getFileIcon from '@/functions/GetFileIcon';
 import getFileType from '@/functions/GetFileType';
+import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
 import type file from '@/types/app/file';
 
 const page = usePage<{
     share: {
+        id: number;
+        user_id: number;
         title: string;
         description: string;
         files: file[];
@@ -70,6 +74,19 @@ const page = usePage<{
                     </Attachment>
                 </template>
             </AttachmentGroup>
+        </div>
+        <div v-if="page.props.auth.user.id === page.props.share.user_id">
+            <Form
+                :method="destroy(page.props.share).method"
+                :action="destroy(page.props.share).url"
+            >
+                <ConfirmButton
+                    default-text="Delete share"
+                    default-style="text-destructive"
+                    confirm-text="Are you sure?"
+                    confirm-style="text-destructive border-destructive!"
+                />
+            </Form>
         </div>
     </Layout>
 </template>

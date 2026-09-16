@@ -6,6 +6,8 @@ use App\Http\Requests\StoreShareRequest;
 use App\Models\Share;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -89,8 +91,13 @@ class ShareController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Share $share): void
+    public function destroy(Share $share): RedirectResponse
     {
-        //
+        Gate::authorize('delete', $share);
+
+        Storage::deleteDirectory("shares/$share->id");
+        $share->delete();
+
+        return to_route('share.index');
     }
 }
