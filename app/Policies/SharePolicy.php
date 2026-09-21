@@ -36,7 +36,7 @@ class SharePolicy
      */
     public function update(User $user, Share $share): bool
     {
-        return false;
+        return $share->user()->is($user);
     }
 
     /**

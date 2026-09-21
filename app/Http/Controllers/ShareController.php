@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShareUpdateRequest;
 use App\Http\Requests\StoreShareRequest;
 use App\Models\Share;
 use Illuminate\Http\RedirectResponse;
@@ -75,17 +76,20 @@ class ShareController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Share $share): void
+    public function edit(Share $share): Response
     {
-        //
+        return Inertia::render('Share/Edit',
+            [
+                'share' => $share,
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Share $share): void
+    public function update(ShareUpdateRequest $request, Share $share): void
     {
-        //
+        $share->update($request->safe()->only(['title', 'description']));
     }
 
     /**
