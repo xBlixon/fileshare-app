@@ -2,7 +2,7 @@
 import { usePage } from '@inertiajs/vue3';
 import ShareCard from '@/pages/Components/ShareCard.vue';
 import Layout from '@/pages/Templates/Layout.vue';
-import type ShareInfo from '@/types/app/shareInfo';
+import type ShareInfo from '@/types/app/ShareInfo';
 
 const page = usePage<{
     shares: ShareInfo[];

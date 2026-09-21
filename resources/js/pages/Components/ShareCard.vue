@@ -9,7 +9,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import formatSmartDate from '@/functions/FormatSmartDate';
-import type ShareInfo from '@/types/app/shareInfo';
+import type ShareInfo from '@/types/app/ShareInfo';
 
 const props = defineProps<{
     share: ShareInfo;
