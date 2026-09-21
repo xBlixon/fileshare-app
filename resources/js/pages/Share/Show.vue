@@ -12,17 +12,15 @@ import {
     AttachmentTitle,
     AttachmentTrigger,
 } from '@/components/ui/attachment';
+import { Button } from '@/components/ui/button';
 import fileDescription from '@/functions/FileDescription';
 import getFileIcon from '@/functions/GetFileIcon';
 import getFileType from '@/functions/GetFileType';
 import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
-import type file from '@/types/app/file';
-import { Button } from '@/components/ui/button';
-import share from '@/routes/share';
-import { Share } from '@/types/app/Share';
+import type { Share } from '@/types/app/Share';
 
-const page = usePage<{share: Share}>();
+const page = usePage<{ share: Share }>();
 </script>
 
 <template>
@@ -72,7 +70,8 @@ const page = usePage<{share: Share}>();
         </div>
         <div
             class="flex gap-2"
-            v-if="page.props.auth.user.id === page.props.share.user_id">
+            v-if="page.props.auth.user.id === page.props.share.user_id"
+        >
             <Form
                 :method="destroy(page.props.share).method"
                 :action="destroy(page.props.share).url"
@@ -84,7 +83,9 @@ const page = usePage<{share: Share}>();
                     confirm-style="text-destructive border-destructive!"
                 />
             </Form>
-            <a :href="edit(page.props.share).url"><Button variant="outline" class="text-chart-2">Edit</Button></a>
+            <a :href="edit(page.props.share).url"
+                ><Button variant="outline" class="text-chart-2">Edit</Button></a
+            >
         </div>
     </Layout>
 </template>

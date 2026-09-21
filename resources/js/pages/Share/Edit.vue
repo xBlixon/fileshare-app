@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Layout from '@/pages/Templates/Layout.vue';
-import FormLayout from '@/pages/Components/Form/FormLayout.vue';
 import { Form, usePage } from '@inertiajs/vue3';
-import { update } from '@/actions/App/Http/Controllers/ShareController';
-import { Share } from '@/types/app/Share';
-import FormInput from '@/pages/Components/Form/FormInput.vue';
 import { ref } from 'vue';
+import { update } from '@/actions/App/Http/Controllers/ShareController';
 import { Button } from '@/components/ui/button';
+import FormInput from '@/pages/Components/Form/FormInput.vue';
+import FormLayout from '@/pages/Components/Form/FormLayout.vue';
+import Layout from '@/pages/Templates/Layout.vue';
+import type { Share } from '@/types/app/Share';
 
 const page = usePage<{ share: Share }>();
 
@@ -39,7 +39,7 @@ const description = ref(page.props.share.description);
                     v-model="description"
                 />
 
-                <Button class="mt-3 py-5 w-full">Update</Button>
+                <Button class="mt-3 w-full py-5">Update</Button>
             </Form>
         </FormLayout>
     </Layout>
