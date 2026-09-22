@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ShareUpdateRequest;
 use App\Http\Requests\StoreShareRequest;
+use App\Models\File;
 use App\Models\Share;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -78,6 +80,8 @@ class ShareController extends Controller
      */
     public function edit(Share $share): Response
     {
+        $share->load('files:id,share_id,name,size');
+
         return Inertia::render('Share/Edit',
             [
                 'share' => $share,
@@ -89,6 +93,15 @@ class ShareController extends Controller
      */
     public function update(ShareUpdateRequest $request, Share $share): void
     {
+        Log::debug($request->safe());
+        $files = File::where('share_id', $share->id)
+            ->whereIn('id', $request->safe()->only('filesToRemove'));
+
+        $files->each(function ($file) {
+            Storage::delete($file->path.$file->name);
+            $file->delete();
+        });
+
         $share->update($request->safe()->only(['title', 'description']));
     }
 

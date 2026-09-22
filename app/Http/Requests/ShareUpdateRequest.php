@@ -25,7 +25,9 @@ class ShareUpdateRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'description' => ['nullable', 'string']
+            'description' => ['nullable', 'string'],
+            'filesToRemove' => ['array'],
+            'filesToRemove.*' => ['integer', 'exists:files,id'],
         ];
     }
 }

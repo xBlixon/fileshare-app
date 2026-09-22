@@ -19,6 +19,7 @@ import getFileType from '@/functions/GetFileType';
 import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
 import type { Share } from '@/types/app/Share';
+import FileCard from '@/pages/Components/FileCard.vue';
 
 const page = usePage<{ share: Share }>();
 </script>
@@ -34,37 +35,7 @@ const page = usePage<{ share: Share }>();
         <div class="mx-auto w-full py-12">
             <AttachmentGroup class="flex w-full flex-wrap justify-center">
                 <template v-for="file in page.props.share.files" :key="file.id">
-                    <Attachment orientation="vertical">
-                        <AttachmentMedia
-                            v-if="
-                                (
-                                    mime.getType(getFileType(file.name)) ?? ''
-                                ).startsWith('image/')
-                            "
-                            variant="image"
-                        >
-                            <img :src="show(file).url" :alt="file.name" />
-                        </AttachmentMedia>
-
-                        <AttachmentMedia v-else variant="icon">
-                            <component :is="getFileIcon(file)" />
-                        </AttachmentMedia>
-                        <AttachmentContent>
-                            <AttachmentTitle>{{ file.name }}</AttachmentTitle>
-                            <AttachmentDescription>{{
-                                fileDescription(file)
-                            }}</AttachmentDescription>
-                        </AttachmentContent>
-                        <AttachmentTrigger as-child>
-                            <a
-                                :href="show(file).url"
-                                target="_blank"
-                                rel="noreferrer"
-                                :aria-label="`Open `"
-                                class="absolute inset-0"
-                            />
-                        </AttachmentTrigger>
-                    </Attachment>
+                    <FileCard :file="file" />
                 </template>
             </AttachmentGroup>
         </div>
