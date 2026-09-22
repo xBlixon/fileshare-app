@@ -1,25 +1,12 @@
 <script setup lang="ts">
 import { Form, usePage } from '@inertiajs/vue3';
-import mime from 'mime';
-import { show } from '@/actions/App/Http/Controllers/FileController';
 import { destroy, edit } from '@/actions/App/Http/Controllers/ShareController';
-import {
-    Attachment,
-    AttachmentContent,
-    AttachmentDescription,
-    AttachmentGroup,
-    AttachmentMedia,
-    AttachmentTitle,
-    AttachmentTrigger,
-} from '@/components/ui/attachment';
+import { AttachmentGroup } from '@/components/ui/attachment';
 import { Button } from '@/components/ui/button';
-import fileDescription from '@/functions/FileDescription';
-import getFileIcon from '@/functions/GetFileIcon';
-import getFileType from '@/functions/GetFileType';
+import FileCard from '@/pages/Components/FileCard.vue';
 import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
 import type { Share } from '@/types/app/Share';
-import FileCard from '@/pages/Components/FileCard.vue';
 
 const page = usePage<{ share: Share }>();
 </script>

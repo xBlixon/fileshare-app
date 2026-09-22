@@ -23,10 +23,10 @@ const filesToRemove = ref<File[]>([]);
 function handleUploadedFileRemoval(file: File): void {
     const index = filesToRemove.value.indexOf(file);
 
-    if(index !== -1) {
+    if (index !== -1) {
         filesToRemove.value.splice(index, 1);
     } else {
-        if (uploadedFiles.value.length-1 === filesToRemove.value.length) {
+        if (uploadedFiles.value.length - 1 === filesToRemove.value.length) {
             // Prevent a share from having no files
             return;
         }
@@ -76,10 +76,12 @@ function handleUploadedFileRemoval(file: File): void {
                         </template>
                     </AttachmentGroup>
                 </Card>
-                <input type="hidden" name="filesToRemove[]"
-                       v-for="file in filesToRemove"
-                       :value="file.id"
-                       :key="file.id"
+                <input
+                    type="hidden"
+                    name="filesToRemove[]"
+                    v-for="file in filesToRemove"
+                    :value="file.id"
+                    :key="file.id"
                 />
                 <Button class="mt-3 w-full py-5">Update</Button>
             </Form>
