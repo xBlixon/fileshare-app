@@ -9,7 +9,7 @@ import FileCard from '@/pages/Components/FileCard.vue';
 import FormInput from '@/pages/Components/Form/FormInput.vue';
 import FormLayout from '@/pages/Components/Form/FormLayout.vue';
 import Layout from '@/pages/Templates/Layout.vue';
-import type File from '@/types/app/File';
+import type FileInfo from '@/types/app/FileInfo';
 import type { Share } from '@/types/app/Share';
 
 const page = usePage<{ share: Share }>();
@@ -18,9 +18,10 @@ const title = ref(page.props.share.title);
 const description = ref(page.props.share.description);
 
 const uploadedFiles = ref(page.props.share.files);
-const filesToRemove = ref<File[]>([]);
+const filesToRemove = ref<FileInfo[]>([]);
+const filesToUpload = ref<File[]>([]);
 
-function handleUploadedFileRemoval(file: File): void {
+function handleUploadedFileRemoval(file: FileInfo): void {
     const index = filesToRemove.value.indexOf(file);
 
     if (index !== -1) {

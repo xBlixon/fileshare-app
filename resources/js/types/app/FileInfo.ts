@@ -1,4 +1,4 @@
-export default interface File {
+export default interface FileInfo {
     id: number;
     name: string;
     size: number;

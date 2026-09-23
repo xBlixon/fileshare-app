@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { Form } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { store } from '@/actions/App/Http/Controllers/ShareController';
 import DropZone from '@/pages/Components/Form/DropZone.vue';
 import FormInput from '@/pages/Components/Form/FormInput.vue';
 import FormLayout from '@/pages/Components/Form/FormLayout.vue';
+import HorizontalFileUploadList from '@/pages/Components/Form/HorizontalFileUploadList.vue';
 import Submit from '@/pages/Components/Form/Submit.vue';
 import Layout from '@/pages/Templates/Layout.vue';
+
+const filesToUpload = ref<File[]>([]);
 </script>
 
 <template>
@@ -32,10 +36,10 @@ import Layout from '@/pages/Templates/Layout.vue';
                     type="textarea"
                     placeholder="Let the light shine on these files!"
                 />
-                <DropZone
-                    class="mt-3"
-                    attachment-group-class="mt-3 max-[845px]:justify-center flex-wrap"
-                    name="files"
+                <DropZone class="mt-3" name="files" v-model="filesToUpload" />
+                <HorizontalFileUploadList
+                    class="mt-3 flex-wrap max-[845px]:justify-center"
+                    v-model="filesToUpload"
                 />
                 <div class="md:mx-10">
                     <Submit text="Share" class="h-12" />

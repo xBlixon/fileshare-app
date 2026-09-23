@@ -1,8 +1,8 @@
-import type File from '@/types/app/File';
+import type FileInfo from '@/types/app/FileInfo';
 export interface Share {
     id: number;
     user_id: number;
     title: string;
     description: string;
-    files: File[];
+    files: FileInfo[];
 }

@@ -15,16 +15,16 @@ import {
 import fileDescription from '@/functions/FileDescription';
 import getFileIcon from '@/functions/GetFileIcon';
 import getFileType from '@/functions/GetFileType';
-import type File from '@/types/app/File';
+import type FileInfo from '@/types/app/FileInfo';
 
 defineProps<{
-    file: File;
+    file: FileInfo;
     enableRemove?: boolean;
     toBeRemoved?: boolean;
 }>();
 
 const emit = defineEmits<{
-    delete: [file: File];
+    delete: [file: FileInfo];
 }>();
 </script>
 
