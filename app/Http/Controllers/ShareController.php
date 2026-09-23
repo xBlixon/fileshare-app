@@ -47,16 +47,7 @@ class ShareController extends Controller
 
         $files = $request->file('files');
 
-        foreach ($files as $file) {
-            $path = "shares/$share->id/";
-            $name = $file->getClientOriginalName();
-            $file->storeAs($path, $name);
-            $share->files()->create([
-                'path' => $path,
-                'name' => $name,
-                'size' => $file->getSize(),
-            ]);
-        }
+        FileActions::saveMany($files, $share);
 
         Inertia::flash('success', 'Your share has been created!');
 
