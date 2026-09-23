@@ -1,9 +1,9 @@
 import { AudioLines, Clapperboard, FileText } from '@lucide/vue';
 import mime from 'mime';
 import getFileType from '@/functions/GetFileType';
-import type file from '@/types/app/FileInfo';
+import type FileInfo from '@/types/app/FileInfo';
 
-export default function getFileIcon(file: file) {
+export default function getFileIcon(file: FileInfo | File) {
     const type = getFileType(file.name);
     const mimeType = mime.getType(type) ?? '';
 

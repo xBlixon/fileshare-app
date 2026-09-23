@@ -28,6 +28,8 @@ class ShareUpdateRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'filesToRemove' => ['array'],
             'filesToRemove.*' => ['integer', 'exists:files,id'],
+            'newFiles' => ['array', 'nullable'],
+            'newFiles.*' => ['file', 'max:65536'], // 64 MiB
         ];
     }
 }

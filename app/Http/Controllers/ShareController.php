@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\FileActions;
 use App\Http\Requests\ShareUpdateRequest;
 use App\Http\Requests\StoreShareRequest;
 use App\Models\File;
 use App\Models\Share;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -91,18 +92,27 @@ class ShareController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ShareUpdateRequest $request, Share $share): void
+    public function update(ShareUpdateRequest $request, Share $share): RedirectResponse
     {
-        Log::debug($request->safe());
-        $files = File::where('share_id', $share->id)
-            ->whereIn('id', $request->safe()->only('filesToRemove'));
+        $newFiles = $request->file('newFiles') ?? [];
 
-        $files->each(function ($file) {
-            Storage::delete($file->path.$file->name);
-            $file->delete();
-        });
+        /** @var Collection<int, File> $filesToRemove */
+        $filesToRemove = File::where('share_id', $share->id)
+            ->whereIn('id', $request->safe()['filesToRemove'])->get()->collect();
 
         $share->update($request->safe()->only(['title', 'description']));
+
+        if (count($newFiles) > 0) {
+            FileActions::saveMany($newFiles, $share);
+        } elseif ($share->files->count() === $filesToRemove->count()) {
+            Inertia::flash('error', 'Unable remove all files from a file share.');
+
+            return to_route('share.show', ['share' => $share]);
+        }
+
+        FileActions::removeMany($filesToRemove);
+
+        return to_route('share.show', ['share' => $share]);
     }
 
     /**

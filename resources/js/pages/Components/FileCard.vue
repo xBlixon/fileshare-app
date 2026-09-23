@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { X } from '@lucide/vue';
+import { filesize } from 'filesize';
 import mime from 'mime';
-import { show } from '@/actions/App/Http/Controllers/FileController';
 import {
     Attachment,
     AttachmentAction,
@@ -10,22 +10,39 @@ import {
     AttachmentDescription,
     AttachmentMedia,
     AttachmentTitle,
-    AttachmentTrigger,
 } from '@/components/ui/attachment';
-import fileDescription from '@/functions/FileDescription';
 import getFileIcon from '@/functions/GetFileIcon';
 import getFileType from '@/functions/GetFileType';
-import type FileInfo from '@/types/app/FileInfo';
 
 defineProps<{
-    file: FileInfo;
+    file: File;
     enableRemove?: boolean;
-    toBeRemoved?: boolean;
 }>();
 
 const emit = defineEmits<{
-    delete: [file: FileInfo];
+    delete: [file: File];
 }>();
+
+function imageURL(file: File): string {
+    return URL.createObjectURL(file);
+}
+
+function extension(file: File): string {
+    const lastDotIndex = file.name.lastIndexOf('.');
+
+    if (lastDotIndex === -1 || lastDotIndex === 0) {
+        return '';
+    }
+
+    return file.name.slice(lastDotIndex + 1).toUpperCase();
+}
+
+function getFileDescription(file: File): string {
+    const ext = extension(file);
+    const size = filesize(file.size, { standard: 'iec' });
+
+    return `${ext} · ${size}`;
+}
 </script>
 
 <template>
@@ -38,7 +55,7 @@ const emit = defineEmits<{
             "
             variant="image"
         >
-            <img :src="show(file).url" :alt="file.name" />
+            <img :src="imageURL(file)" :alt="file.name" />
         </AttachmentMedia>
 
         <AttachmentMedia v-else variant="icon">
@@ -47,7 +64,7 @@ const emit = defineEmits<{
         <AttachmentContent>
             <AttachmentTitle>{{ file.name }}</AttachmentTitle>
             <AttachmentDescription>{{
-                fileDescription(file)
+                getFileDescription(file)
             }}</AttachmentDescription>
         </AttachmentContent>
         <AttachmentActions v-if="enableRemove">
@@ -55,16 +72,6 @@ const emit = defineEmits<{
                 <X color="#ffffff" />
             </AttachmentAction>
         </AttachmentActions>
-        <AttachmentTrigger as-child>
-            <a
-                :href="show(file).url"
-                target="_blank"
-                rel="noreferrer"
-                :aria-label="`Open `"
-                class="absolute inset-0"
-            />
-        </AttachmentTrigger>
-        <div v-if="toBeRemoved" class="absolute inset-0 bg-red-500/15"></div>
     </Attachment>
 </template>
 

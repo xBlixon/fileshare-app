@@ -3,7 +3,7 @@ import { Form, usePage } from '@inertiajs/vue3';
 import { destroy, edit } from '@/actions/App/Http/Controllers/ShareController';
 import { AttachmentGroup } from '@/components/ui/attachment';
 import { Button } from '@/components/ui/button';
-import FileCard from '@/pages/Components/FileCard.vue';
+import FileInfoCard from '@/pages/Components/FileInfoCard.vue';
 import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
 import type { Share } from '@/types/app/Share';
@@ -22,7 +22,7 @@ const page = usePage<{ share: Share }>();
         <div class="mx-auto w-full py-12">
             <AttachmentGroup class="flex w-full flex-wrap justify-center">
                 <template v-for="file in page.props.share.files" :key="file.id">
-                    <FileCard :file="file" />
+                    <FileInfoCard :file="file" />
                 </template>
             </AttachmentGroup>
         </div>

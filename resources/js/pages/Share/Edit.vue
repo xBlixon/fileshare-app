@@ -6,6 +6,8 @@ import { AttachmentGroup } from '@/components/ui/attachment';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import FileCard from '@/pages/Components/FileCard.vue';
+import FileInfoCard from '@/pages/Components/FileInfoCard.vue';
+import DropZone from '@/pages/Components/Form/DropZone.vue';
 import FormInput from '@/pages/Components/Form/FormInput.vue';
 import FormLayout from '@/pages/Components/Form/FormLayout.vue';
 import Layout from '@/pages/Templates/Layout.vue';
@@ -19,6 +21,7 @@ const description = ref(page.props.share.description);
 
 const uploadedFiles = ref(page.props.share.files);
 const filesToRemove = ref<FileInfo[]>([]);
+
 const filesToUpload = ref<File[]>([]);
 
 function handleUploadedFileRemoval(file: FileInfo): void {
@@ -27,13 +30,29 @@ function handleUploadedFileRemoval(file: FileInfo): void {
     if (index !== -1) {
         filesToRemove.value.splice(index, 1);
     } else {
-        if (uploadedFiles.value.length - 1 === filesToRemove.value.length) {
+        if (
+            uploadedFiles.value.length - 1 === filesToRemove.value.length &&
+            filesToUpload.value.length === 0
+        ) {
             // Prevent a share from having no files
             return;
         }
 
         filesToRemove.value.push(file);
     }
+}
+
+function handleFileToUploadRemoval(file: File): void {
+    if (
+        filesToRemove.value.length === uploadedFiles.value.length &&
+        filesToUpload.value.length === 1
+    ) {
+        // Prevent removing file from upload list if is the ONLY remaining file.
+        return;
+    }
+
+    const index = filesToUpload.value.indexOf(file);
+    filesToUpload.value.splice(index, 1);
 }
 </script>
 
@@ -68,11 +87,19 @@ function handleUploadedFileRemoval(file: FileInfo): void {
                         class="flex w-full flex-wrap justify-center"
                     >
                         <template v-for="file in uploadedFiles" :key="file.id">
-                            <FileCard
+                            <FileInfoCard
                                 :file="file"
                                 enable-remove
                                 @delete="handleUploadedFileRemoval"
                                 :to-be-removed="filesToRemove.includes(file)"
+                            />
+                        </template>
+
+                        <template v-for="file in filesToUpload" :key="file.id">
+                            <FileCard
+                                :file="file"
+                                enable-remove
+                                @delete="handleFileToUploadRemoval"
                             />
                         </template>
                     </AttachmentGroup>
@@ -83,6 +110,11 @@ function handleUploadedFileRemoval(file: FileInfo): void {
                     v-for="file in filesToRemove"
                     :value="file.id"
                     :key="file.id"
+                />
+                <DropZone
+                    name="newFiles"
+                    v-model="filesToUpload"
+                    class="mt-3"
                 />
                 <Button class="mt-3 w-full py-5">Update</Button>
             </Form>
