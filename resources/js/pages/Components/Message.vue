@@ -14,9 +14,9 @@ const props = withDefaults(
 );
 
 const messageStyles = {
-    success: 'bg-green-600 text-accent',
-    neutral: 'bg-accent-foreground text-accent', // message
-    error: 'bg-red-400 text-black',
+    success: ' bg-green-600 text-accent',
+    neutral: ' bg-accent-foreground text-accent', // message
+    error: ' bg-red-400 text-black',
 };
 
 const style = messageStyles[props.type];
