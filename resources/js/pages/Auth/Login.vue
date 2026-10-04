@@ -13,7 +13,7 @@ const route = login();
 </script>
 
 <template>
-    <Layout vertical-center>
+    <Layout vertical-center horizontal-center>
         <FormLayout
             title="Log in to your account"
             description="Enter your credentials"

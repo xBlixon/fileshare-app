@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\FileActions;
+use App\Http\Requests\ShareUpdateRequest;
 use App\Http\Requests\StoreShareRequest;
+use App\Models\File;
 use App\Models\Share;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,9 +20,14 @@ class ShareController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return Inertia::render('Share/Index');
+        $shares = $request->user()->shares()->cardInfo()->get();
+
+        return Inertia::render('Share/Index',
+            [
+                'shares' => $shares,
+            ]);
     }
 
     /**
@@ -36,12 +47,7 @@ class ShareController extends Controller
 
         $files = $request->file('files');
 
-        foreach ($files as $file) {
-            $path = $file->store("shares/$share->id");
-            $share->files()->create([
-                'path' => $path,
-            ]);
-        }
+        FileActions::saveMany($files, $share);
 
         Inertia::flash('success', 'Your share has been created!');
 
@@ -53,6 +59,8 @@ class ShareController extends Controller
      */
     public function show(Share $share): Response
     {
+        $share->load('files:id,share_id,name,size');
+
         return Inertia::render('Share/Show',
             [
                 'share' => $share,
@@ -62,24 +70,52 @@ class ShareController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Share $share): void
+    public function edit(Share $share): Response
     {
-        //
+        $share->load('files:id,share_id,name,size');
+
+        return Inertia::render('Share/Edit',
+            [
+                'share' => $share,
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Share $share): void
+    public function update(ShareUpdateRequest $request, Share $share): RedirectResponse
     {
-        //
+        $newFiles = $request->file('newFiles') ?? [];
+
+        /** @var Collection<int, File> $filesToRemove */
+        $filesToRemove = File::where('share_id', $share->id)
+            ->whereIn('id', $request->safe()['filesToRemove'])->get()->collect();
+
+        $share->update($request->safe()->only(['title', 'description']));
+
+        if (count($newFiles) > 0) {
+            FileActions::saveMany($newFiles, $share);
+        } elseif ($share->files->count() === $filesToRemove->count()) {
+            Inertia::flash('error', 'Unable remove all files from a file share.');
+
+            return to_route('share.show', ['share' => $share]);
+        }
+
+        FileActions::removeMany($filesToRemove);
+
+        return to_route('share.show', ['share' => $share]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Share $share): void
+    public function destroy(Share $share): RedirectResponse
     {
-        //
+        Gate::authorize('delete', $share);
+
+        Storage::deleteDirectory("shares/$share->id");
+        $share->delete();
+
+        return to_route('share.index');
     }
 }

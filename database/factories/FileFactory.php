@@ -17,14 +17,22 @@ class FileFactory extends Factory
         return $this
 
             ->afterMaking(function (File $file) {
-                $file->path = 'shares/'.$file->share_id.'/'.$this->faker->uuid().'.txt';
+                $file->path = 'shares/'.$file->share_id.'/';
+                $file->name = $this->faker->uuid().'.txt';
             })
 
             ->afterCreating(function (File $file) {
+                /**
+                 * Since paragraph is returned as text there is no
+                 * worry of contactenating string with array.
+                 *
+                 * @phpstan-ignore-next-line
+                 */
+                $contents = "Hello there!\n\n".$this->faker->paragraphs(2, true);
+                $contents = substr($contents, 0, $file->size);
                 Storage::put(
-                    path: $file->path,
-                    contents: "Hello there!\n\n"
-                    .$this->faker->paragraph()
+                    path: $file->path.$file->name,
+                    contents: $contents
                 );
             });
     }
@@ -38,6 +46,7 @@ class FileFactory extends Factory
     {
         return [
             'share_id' => Share::factory(),
+            'size' => 128,
         ];
     }
 }

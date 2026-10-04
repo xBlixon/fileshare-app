@@ -23,7 +23,9 @@ return new class extends Migration
 
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->unique();
+            $table->string('path');
+            $table->string('name');
+            $table->integer('size');
             $table->foreignIdFor(Share::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

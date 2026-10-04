@@ -38,7 +38,7 @@ class FileController extends Controller
      */
     public function show(File $file): StreamedResponse
     {
-        return Storage::response($file->path);
+        return Storage::response($file->path.$file->name);
     }
 
     /**

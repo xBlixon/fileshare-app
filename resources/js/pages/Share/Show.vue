@@ -1,20 +1,49 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
+import { Form, usePage } from '@inertiajs/vue3';
+import { destroy, edit } from '@/actions/App/Http/Controllers/ShareController';
+import { AttachmentGroup } from '@/components/ui/attachment';
+import { Button } from '@/components/ui/button';
+import FileInfoCard from '@/pages/Components/FileInfoCard.vue';
+import ConfirmButton from '@/pages/Components/Form/ConfirmButton.vue';
 import Layout from '@/pages/Templates/Layout.vue';
+import type { Share } from '@/types/app/Share';
 
-const page = usePage<{
-    share: {
-        title: string;
-        description: string;
-    };
-}>();
+const page = usePage<{ share: Share }>();
 </script>
 
 <template>
-    <Layout>
-        <div class="text-center">
-            <h2>{{ page.props.share.title }}</h2>
+    <Layout horizontal-center>
+        <div>
+            <h2 class="mb-2 text-2xl font-bold">
+                {{ page.props.share.title }}
+            </h2>
             <p>{{ page.props.share.description }}</p>
+        </div>
+        <div class="mx-auto w-full py-12">
+            <AttachmentGroup class="flex w-full flex-wrap justify-center">
+                <template v-for="file in page.props.share.files" :key="file.id">
+                    <FileInfoCard :file="file" />
+                </template>
+            </AttachmentGroup>
+        </div>
+        <div
+            class="flex gap-2"
+            v-if="page.props.auth.user.id === page.props.share.user_id"
+        >
+            <Form
+                :method="destroy(page.props.share).method"
+                :action="destroy(page.props.share).url"
+            >
+                <ConfirmButton
+                    default-text="Delete share"
+                    default-style="text-destructive"
+                    confirm-text="Are you sure?"
+                    confirm-style="text-destructive border-destructive!"
+                />
+            </Form>
+            <a :href="edit(page.props.share).url"
+                ><Button variant="outline" class="text-chart-2">Edit</Button></a
+            >
         </div>
     </Layout>
 </template>

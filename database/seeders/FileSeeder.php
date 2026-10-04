@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Share;
 use Database\Factories\FileFactory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 
 class FileSeeder extends Seeder
 {
@@ -14,7 +13,6 @@ class FileSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('shares');
 
         Share::all()->each(function (Share $share) {
 

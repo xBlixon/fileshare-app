@@ -12,7 +12,7 @@ const route = store();
 </script>
 
 <template>
-    <Layout vertical-center>
+    <Layout vertical-center horizontal-center>
         <FormLayout
             title="Create a new account"
             description="Your first step to sharing!"
